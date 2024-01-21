@@ -6,8 +6,9 @@ import "hookable";
 import "unctx";
 import "unhead";
 import "@unhead/shared";
-import "ufo";
+import "vue-router";
 import "h3";
+import "ufo";
 import "defu";
 import "klona";
 import "devalue";
@@ -31,10 +32,10 @@ const islandRenderer = defineComponent({
     onErrorCaptured((e) => {
       console.log(e);
     });
-    return () => createVNode(component || "span", { ...props.context.props, "nuxt-ssr-component-uid": "" });
+    return () => createVNode(component || "span", { ...props.context.props, "data-island-uid": "" });
   }
 });
 export {
   islandRenderer as default
 };
-//# sourceMappingURL=island-renderer-xq5m2Cff.js.map
+//# sourceMappingURL=island-renderer-sB8lCBAu.js.map
