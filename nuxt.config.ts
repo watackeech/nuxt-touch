@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@vite-pwa/nuxt', "@nuxt/image-edge"],
+  imports: {
+    autoImport: true,
+  },
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
@@ -31,12 +34,7 @@ export default defineNuxtConfig({
     workbox: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
       navigateFallback: '/',
-      runtimeCaching: [
-        {
-          handler: 'NetworkFirst',
-          urlPattern: 'https://nuxt-touch/.*',
-        }
-      ],
+      cleanupOutdatedCaches: false,
     },
     client: {
       installPrompt: true,
