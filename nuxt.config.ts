@@ -1,14 +1,13 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-// import { defineNuxtConfig } from 'nuxt/config'
-
 export default defineNuxtConfig({
-  modules: ['@vite-pwa/nuxt'],
   devtools: { enabled: true },
+  modules: ['@vite-pwa/nuxt', "@nuxt/image-edge"],
   pwa: {
     registerType: 'autoUpdate',
     manifest: {
-      name: 'Nuxt Vite PWA',
-      short_name: 'NuxtVitePWA',
+      name: 'Challenge Touch Nuxt',
+      short_name: 'Nuxt Touch',
+      background_color: '#ffffff',
       theme_color: '#ffffff',
       icons: [
         {
@@ -31,7 +30,13 @@ export default defineNuxtConfig({
     },
     workbox: {
       globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-      navigateFallback: '/'
+      navigateFallback: '/',
+      runtimeCaching: [
+        {
+          handler: 'NetworkFirst',
+          urlPattern: 'https://nuxt-touch/.*',
+        }
+      ],
     },
     client: {
       installPrompt: true,
