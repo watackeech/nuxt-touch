@@ -1,6 +1,6 @@
 import { defineComponent, computed, ref, h, resolveComponent } from "vue";
 import { hasProtocol, joinURL, parseURL, parseQuery, withTrailingSlash, withoutTrailingSlash } from "ufo";
-import { e as useRouter, n as nuxtLinkDefaults, b as useRuntimeConfig, f as navigateTo } from "../server.mjs";
+import { f as useRouter, n as nuxtLinkDefaults, b as useRuntimeConfig, g as navigateTo } from "../server.mjs";
 const firstNonUndefined = (...args) => args.find((arg) => arg !== void 0);
 const DEFAULT_EXTERNAL_REL_ATTRIBUTE = "noopener noreferrer";
 // @__NO_SIDE_EFFECTS__
@@ -205,4 +205,4 @@ function applyTrailingSlashBehavior(to, trailingSlash) {
 export {
   __nuxt_component_0 as _
 };
-//# sourceMappingURL=nuxt-link-qIlvaWbP.js.map
+//# sourceMappingURL=nuxt-link-nfmPRCnn.js.map

@@ -561,7 +561,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import("./_nuxt/index-mx3AGRiG.js").then((m) => m.default || m)
+    component: () => import("./_nuxt/index-Z-lzLnHA.js").then((m) => m.default || m)
   },
   {
     name: "lesson-english",
@@ -915,7 +915,115 @@ const __nuxt_component_0 = defineComponent({
     return () => null;
   }
 });
-const layouts = {};
+function createLoadingIndicator(opts = {}) {
+  const { duration = 2e3, throttle = 200 } = opts;
+  const nuxtApp = /* @__PURE__ */ useNuxtApp();
+  const progress = ref(0);
+  const isLoading = ref(false);
+  computed(() => 1e4 / duration);
+  let _timer = null;
+  let _throttle = null;
+  const start = () => set(0);
+  function set(at = 0) {
+    if (nuxtApp.isHydrating) {
+      return;
+    }
+    if (at >= 100) {
+      return finish();
+    }
+    clear();
+    progress.value = at < 0 ? 0 : at;
+    if (throttle && false) {
+      _throttle = setTimeout(() => {
+        isLoading.value = true;
+      }, throttle);
+    } else {
+      isLoading.value = true;
+    }
+  }
+  function finish() {
+    progress.value = 100;
+    clear();
+  }
+  function clear() {
+    clearInterval(_timer);
+    clearTimeout(_throttle);
+    _timer = null;
+    _throttle = null;
+  }
+  let _cleanup = () => {
+  };
+  return {
+    _cleanup,
+    progress: computed(() => progress.value),
+    isLoading: computed(() => isLoading.value),
+    start,
+    set,
+    finish,
+    clear
+  };
+}
+function useLoadingIndicator(opts = {}) {
+  const nuxtApp = /* @__PURE__ */ useNuxtApp();
+  const indicator = nuxtApp._loadingIndicator = nuxtApp._loadingIndicator || createLoadingIndicator(opts);
+  return indicator;
+}
+const __nuxt_component_3$1 = defineComponent({
+  name: "NuxtLoadingIndicator",
+  props: {
+    throttle: {
+      type: Number,
+      default: 200
+    },
+    duration: {
+      type: Number,
+      default: 2e3
+    },
+    height: {
+      type: Number,
+      default: 3
+    },
+    color: {
+      type: [String, Boolean],
+      default: "repeating-linear-gradient(to right,#00dc82 0%,#34cdfe 50%,#0047e1 100%)"
+    }
+  },
+  setup(props, { slots, expose }) {
+    const { progress, isLoading, start, finish, clear } = useLoadingIndicator({
+      duration: props.duration,
+      throttle: props.throttle
+    });
+    expose({
+      progress,
+      isLoading,
+      start,
+      finish,
+      clear
+    });
+    return () => h("div", {
+      class: "nuxt-loading-indicator",
+      style: {
+        position: "fixed",
+        top: 0,
+        right: 0,
+        left: 0,
+        pointerEvents: "none",
+        width: "auto",
+        height: `${props.height}px`,
+        opacity: isLoading.value ? 1 : 0,
+        background: props.color || void 0,
+        backgroundSize: `${100 / progress.value * 100}% auto`,
+        transform: `scaleX(${progress.value}%)`,
+        transformOrigin: "left",
+        transition: "transform 0.1s, height 0.4s, opacity 0.4s",
+        zIndex: 999999
+      }
+    }, slots);
+  }
+});
+const layouts = {
+  default: () => import("./_nuxt/default-0Yfoy8nN.js").then((m) => m.default || m)
+};
 const LayoutLoader = defineComponent({
   name: "LayoutLoader",
   inheritAttrs: false,
@@ -928,7 +1036,7 @@ const LayoutLoader = defineComponent({
     return () => h(LayoutComponent, props.layoutProps, context.slots);
   }
 });
-const __nuxt_component_1 = defineComponent({
+const __nuxt_component_2 = defineComponent({
   name: "NuxtLayout",
   inheritAttrs: false,
   props: {
@@ -1046,7 +1154,7 @@ const RouteProvider = defineComponent({
     };
   }
 });
-const __nuxt_component_2 = defineComponent({
+const __nuxt_component_3 = defineComponent({
   name: "NuxtPage",
   inheritAttrs: false,
   props: {
@@ -1165,11 +1273,13 @@ const _export_sfc = (sfc, props) => {
 };
 const _sfc_main$2 = {};
 function _sfc_ssrRender(_ctx, _push, _parent, _attrs) {
-  const _component_VitePwaManifest = __nuxt_component_0;
-  const _component_NuxtLayout = __nuxt_component_1;
-  const _component_NuxtPage = __nuxt_component_2;
+  const _component_NuxtPwaManifest = __nuxt_component_0;
+  const _component_NuxtLoadingIndicator = __nuxt_component_3$1;
+  const _component_NuxtLayout = __nuxt_component_2;
+  const _component_NuxtPage = __nuxt_component_3;
   _push(`<div${ssrRenderAttrs(_attrs)}>`);
-  _push(ssrRenderComponent(_component_VitePwaManifest, null, null, _parent));
+  _push(ssrRenderComponent(_component_NuxtPwaManifest, null, null, _parent));
+  _push(ssrRenderComponent(_component_NuxtLoadingIndicator, null, null, _parent));
   _push(ssrRenderComponent(_component_NuxtLayout, null, {
     default: withCtx((_, _push2, _parent2, _scopeId) => {
       if (_push2) {
@@ -1212,7 +1322,7 @@ const _sfc_main$1 = {
     const statusMessage = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import("./_nuxt/error-404-YgqmwHCa.js").then((r) => r.default || r));
+    const _Error404 = defineAsyncComponent(() => import("./_nuxt/error-404-MjVrcxSy.js").then((r) => r.default || r));
     const _Error = defineAsyncComponent(() => import("./_nuxt/error-500-DT7a0Ki0.js").then((r) => r.default || r));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
@@ -1299,8 +1409,9 @@ export {
   createError as c,
   __nuxt_component_0 as d,
   entry$1 as default,
-  useRouter as e,
-  navigateTo as f,
+  __nuxt_component_3$1 as e,
+  useRouter as f,
+  navigateTo as g,
   nuxtLinkDefaults as n,
   useHead as u
 };
